@@ -1,23 +1,30 @@
-import logo from './logo.svg';
 import './App.css';
-
+import {Routes,Route,useNavigate,Navigate} from "react-router-dom";
+import React from 'react';
+import {Container} from './layout';
+import Login from './views/Login';
+import {useSelector} from 'react-redux';
+import {useLocation} from 'react-router-dom';
+import {ToastContainer} from 'react-toastify';
 function App() {
+  const {pathname,search} = useLocation()
+  const {user_email} = useSelector(state => state.auth)
+  const navigate = useNavigate();
+
+  React.useEffect(()=>{
+    if(user_email===''){
+      navigate(`${pathname}${search}`)  
+    }
+
+  },[user_email,navigate,pathname,search])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <ToastContainer/>
+      <Routes>
+          <Route exact path='/auth' element={user_email === '' ? <Login/> : <Navigate to='/'/>}/>
+          <Route path='*' element={user_email === '' ? <Login/> : <Container/>}/>
+      </Routes>
     </div>
   );
 }
