@@ -30,11 +30,12 @@ function Numeric({label,name,size,handleChange,value,isLabelVisible,isDisabled,i
                 variant='outlined'
                 value={value || ''}
                 onChange={handleChange}
+                type='number'
                 
-                inputProps={{
-                    inputMode:'numeric',
-                    pattern:'[0-9]*'
-                }}
+                // inputProps={{
+                //     inputMode:'numeric',
+                //     pattern:'[0-9]*'
+                // }}
             />
         </Grid>
     )

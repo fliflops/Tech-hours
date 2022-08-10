@@ -47,8 +47,6 @@ function SimpleTable({
             pageIndex,
             globalFilter,
             pageSize,
-            
-    
         }
     } = useTable({
         columns,
@@ -67,7 +65,6 @@ function SimpleTable({
     useFlexLayout)
 
     const handleChangePage = (event, newPage) => {
-        // console.log(newPage)
         gotoPage(newPage)
     }
     

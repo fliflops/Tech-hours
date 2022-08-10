@@ -6,14 +6,15 @@ import {Grid,Paper,Typography,Button} from '@mui/material';
 import Toolbar            from '../../../components/toolbar/Toolbar';
 import Spinner            from '../../../components/spinner/spinner'; 
 import {Label}            from '../../../components/labels';
-import {SimpleTable}      from '../../../components/table';
+import {ReactTableEditable}      from '../../../components/table';
+import {RenderSwitch} from '../../../components/table/Columns'
 import Switch             from '../../../components/switch/Switch';
 import SubCategoryDialog  from './Dialog';
-import L3Dialog           from './L3Dialog';
 
-import {getData,updateData} from '../../../store/data-management';
+import {getData,updateData as updateApi} from '../../../store/data-management';
 
 function UpdateServiceCatalog() {
+  const skipPageResetRef = React.useRef(false)
   let params = useParams(); 
   let navigate = useNavigate();
 
@@ -25,14 +26,8 @@ function UpdateServiceCatalog() {
     cat_status:null,
   })
 
-  const [controls,setControls]=React.useState({
-    selectedSubCatalog: null,
-    l3DialogTitle:null
-  })
-
   const [isEdit,setEdit]            = React.useState(false)
   const [dialog,setDialog]          = React.useState(false)
-  const [l3Dialog,setL3Dialog]      = React.useState(false)
   
   const [subCatalog,setSubCatalog]  = React.useState([])
 
@@ -40,45 +35,14 @@ function UpdateServiceCatalog() {
     {
       Header:'Sub Catalog Name',
       accessor:'sub_catalog_name',
-      Cell:props => {
-        const onClick = () => {
-          setControls({
-            ...controls,
-            selectedSubCatalog:props.row.original.id,
-            l3DialogTitle:props.value
-          })
-          toggleL3Dialog()
-        }
-
-        return <Button size='small' onClick={onClick}>{props.value}</Button>
-      }
     },
     {
       Header:'Is Active',
       accessor:'is_active',
-      Cell:props =>{
-        const handleChange = (e) => {
-          let data = [...subCatalog]
-          data[props.row.index]['is_active'] = e.target.checked ? 1 : 0
-          setSubCatalog(data)
-        }
-
-        return (
-          <div>
-          {
-            isEdit ? <Switch checked={props.value === 1 ? true : false} handleChange={handleChange}/> :
-            <label>{props.value === 1 ? 'true' : 'false'}</label> 
-          }
-        </div>
-        )
-      }
+      Cell: isEdit ? RenderSwitch : props => props.value === 1 ? 'true' : 'false'
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   ],[isEdit,subCatalog])
-
-  const toggleL3Dialog = () => {
-    setL3Dialog(!l3Dialog)
-  }
 
   const handleEdit = () => {
     setEdit(!isEdit)
@@ -97,17 +61,19 @@ function UpdateServiceCatalog() {
 
   const handleAdd = (sub_catalog) => {
     const catalog_id = params.catalog_id
+
     setSubCatalog(subCatalog.concat({
       catalog_id,
-      sub_catalog_name:sub_catalog,
+      sub_catalog_id: sub_catalog?.value,
+      sub_catalog_name: sub_catalog?.label,
       is_active:1,
       is_edit:false
-  }))
+    }))
   }
 
   const handleConfirm = () => {
     const catalog_id = params.catalog_id
-    dispatch(updateData({
+    dispatch(updateApi({
       route:`service-catalog/${catalog_id}`,
       data:{
         header:{
@@ -122,6 +88,13 @@ function UpdateServiceCatalog() {
       setEdit(false)
     })
   }
+
+  const updateData = (index,id,value) => {
+    skipPageResetRef.current = true
+    let temp = [...subCatalog]
+    temp[index][id] = value
+    setSubCatalog(temp)
+}
 
   React.useEffect(() => {
     const catalog_id = params.catalog_id
@@ -141,6 +114,10 @@ function UpdateServiceCatalog() {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[params,navigate,isEdit])
+
+  React.useEffect(()=>{
+    skipPageResetRef.current = false
+  },[subCatalog])  
 
   return (
     <Grid container spacing={1}>
@@ -167,12 +144,16 @@ function UpdateServiceCatalog() {
             </Grid>
 
             <Grid item xs={12} sx={{marginTop:1}}>
-              <SimpleTable size={12} data={subCatalog} columns={columns}/>
+              <ReactTableEditable  
+                data={subCatalog} 
+                columns={columns} 
+                //disablePageResetOnDataChange={skipPageResetRef}
+                updateData={updateData}
+              />
             </Grid>
           </Grid>
           <SubCategoryDialog isOpen={dialog} toggle={toggle} handleAdd={handleAdd}/>
-          <L3Dialog isOpen={l3Dialog} toggle={toggleL3Dialog} sub_catalog_id={controls.selectedSubCatalog} is_edit={isEdit} title={controls.l3DialogTitle}/>
-         </Grid>
+          </Grid>
      </Grid>
   )
 }

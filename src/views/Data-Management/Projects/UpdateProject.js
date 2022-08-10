@@ -2,6 +2,7 @@ import React from 'react';
 import {useParams} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
 import {Grid,Paper,Typography,Button} from '@mui/material';
+import moment from 'moment'
 
 import Toolbar from '../../../components/toolbar/Toolbar';
 import Spinner from '../../../components/spinner/spinner'; 
@@ -133,14 +134,15 @@ function UpdateProject() {
             <Label  size={4}        label='Customer'               value={header.project_customer}/>
 
             <Label  size={4}        label='Service Type'           value={header.project_service_type}/>
-            <Label  size={4}        label='Go Live Date'           value={header.project_go_live}/>
+            <Label  size={4}        label='Go Live Date'           value={moment(header.project_go_live).format()}/>
             <Label  size={4}        label='Project Post Code'      value={header.project_post_code}/>
                             
             <Label  size={4}        label='Priority'               value={header.project_priority}/>
-            <Label  size={4}        label='Project Objective'      value={header.project_objective}/>
+            <Label  size={4}        label='Planned Start'          value={header.project_planned_date}/>
             <Label  size={4}        label='Project Scope'          value={header.project_scope}/>
             
             <Label  size={4}        label='Project Out of Scope'   value={header.project_type}/>
+            <Label  size={4}        label='Project Objective'      value={header.project_objective}/>
           </Grid>
       </Grid>
       <Grid item md={12} xs={12}>

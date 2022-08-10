@@ -6,12 +6,12 @@ import Toolbar          from '../../../components/toolbar/Toolbar';
 import {Input}          from '../../../components/inputs';
 import {MasterSelect}   from '../../../components/select';
 import {Label}               from '../../../components/labels';
-import {hooks}          from '../../../helpers'
+import {useNull}          from '../../../helpers'
 import {createEmployee}               from '../../../store/employee/employee.slice';
 import Spinner          from '../../../components/spinner/spinner'; 
 
 function CreateEmp() {
-    const {useNull} = hooks;
+    // const {useNull} = hooks;
     const [hasNull] = useNull();
     const dispatch = useDispatch();
     const {loading} = useSelector(state => state.employee)

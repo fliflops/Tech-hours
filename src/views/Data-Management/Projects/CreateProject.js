@@ -28,9 +28,11 @@ function CreateProject() {
         project_scope:null,
         project_out_scope:null,
         project_go_live:null,
+        project_planned_date:null,
         project_priority:null,
         project_post_code:null,
-        project_service_type:null
+        project_service_type:null,
+       
     })
 
     const handleInputChange = (e) => {
@@ -104,7 +106,9 @@ function CreateProject() {
                     <Input  size={3}        label='Customer'           name='project_customer'          value={header.project_customer}         handleChange={handleInputChange} isLabelVisible /> 
                     <Input  size={3}        label='Service Type'       name='project_service_type'      value={header.project_service_type}     handleChange={handleInputChange} isLabelVisible /> 
                     
-                    <DatePicker size={4}    label='Go Live Date'       name='project_go_live'           value={header.project_go_live}          handleChange={handleInputChange} isLabelVisible/>
+                    <DatePicker size={2}    label='Go Live Date'       name='project_go_live'           value={header.project_go_live}          handleChange={handleInputChange} isLabelVisible/>
+                    <DatePicker size={2}    label='Planned Start'      name='project_planned_date'      value={header.project_planned_date}     handleChange={handleInputChange} isLabelVisible/>
+                    
                     <Input      size={4}    label='Project Post Code'  name='project_post_code'         value={header.project_post_code}        handleChange={handleInputChange} isLabelVisible /> 
                     <Grid item md={4}>
                         <MasterSelect       label='Priority'           name='project_priority'          value={header.project_priority}         handleChange={handleSelectChange} type='quick-code' filter='PROJECT_PRIO'/>

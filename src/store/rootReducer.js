@@ -5,14 +5,18 @@ import employee from './employee';
 import role from './role';
 import calendar from './calendar';
 import dataManagement from './data-management';
+import workHours from './work-hours';
+import {api} from './select/select.query';
 
 const combinedReducers = combineReducers({
-    auth:       auth,
-    select:     select,
-    employee:   employee,
-    role:       role,
-    calendar:   calendar,
-    dataManagement: dataManagement
+    auth:           auth,
+    select:         select,
+    employee:       employee,
+    role:           role,
+    calendar:       calendar,
+    dataManagement: dataManagement,
+    workHours:      workHours,
+    [api.reducerPath]: api.reducer,
 })
 
 const rootReducer = (state,action) => {
@@ -22,5 +26,8 @@ const rootReducer = (state,action) => {
     return combinedReducers(state,action)
 }
 
-export const {getData,createData} = dataManagement
+
+export const {getData,createData} = dataManagement;
+export const {middleware} = api;
 export default rootReducer
+

@@ -1,5 +1,6 @@
-import rootReducer from './rootReducer';
+import rootReducer,{middleware as SelectMiddleWare} from './rootReducer';
 import { configureStore } from '@reduxjs/toolkit';
+
 
 const saveToLocalStorage = (state) => {
     try{
@@ -32,6 +33,8 @@ const saveToLocalStorage = (state) => {
         getDefaultMiddleware({
             serializableCheck:false
         })
+        .concat(SelectMiddleWare)
+
   })
 
   store.subscribe(() => saveToLocalStorage(store.getState()))

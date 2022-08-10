@@ -25,15 +25,12 @@ function Table({
 		pageCount:0,
 	})
 
-	//const [filters,setFilters] = React.useState({})
-
 	const data = React.useMemo(()=>state.data,[state.data])
 
 	const defaultColumn = React.useMemo(()=>({
 		minWidth: 50,
 		width: 150,
-		maxWidth: 400,
-		// Filter: DefaultFilter
+		maxWidth: 400
 	}),[])
 
 	const {
@@ -170,7 +167,8 @@ function Table({
 											headerGroup.headers.map(column => (
 												<TableCell {...column.getHeaderProps()}>
 													<Typography variant='button'>{column.render('Header')}</Typography>
-													<div {...column.getResizerProps()} style={{display:'inline-block',
+													<div {...column.getResizerProps()} style={{
+																display:'inline-block',
 																background: '#9C9C9C',
 																width: '10px',
 																height: '100%',

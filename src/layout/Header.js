@@ -11,7 +11,7 @@ import {UserMenu} from '../components/menu';
 import Sidebar from './Sidebar'
 
 function Header() {
-    const {user_email, loading} = useSelector(state => state.auth)
+    const {user_email} = useSelector(state => state.auth)
 	const [isOpen,setDrawer] = React.useState(false);
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const open = Boolean(anchorEl);

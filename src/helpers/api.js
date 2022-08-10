@@ -7,8 +7,6 @@ const API = ({
 	let headers = { }
 	const state = JSON.parse(localStorage.getItem('state'))
 
-    // console.log(state)
-	// console.log(state.auth.token.token)
 	if(state.auth.token !== ''){
 		headers = {
 			...headers,

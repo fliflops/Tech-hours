@@ -6,17 +6,21 @@ import { toast } from 'react-toastify';
 import Toolbar from '../../../components/toolbar/Toolbar';
 import {Input} from '../../../components/inputs';
 import {Label} from '../../../components/labels';
-import {SimpleTable} from '../../../components/table';
-import Switch from '../../../components/switch/Switch';
+import {ReactTableEditable} from '../../../components/table';
+import {RenderSwitch} from '../../../components/table/Columns';
+// import Switch from '../../../components/switch/Switch';
 import Spinner from '../../../components/spinner';
+import {MasterSelect} from '../../../components/select'
 import {createData} from '../../../store/data-management'
 
 function CreateServiceCatalog() {
+    const skipPageResetRef = React.useRef(false)
     const dispatch = useDispatch()
     const {loading} = useSelector(state => state.dataManagement)
     const [state,setState] = React.useState({
         cat_name:null,
         cat_status:null,
+        sub_catalog:null
     })
     const [subCatalog,setSubCatalog]=React.useState([])
 
@@ -28,32 +32,11 @@ function CreateServiceCatalog() {
         {
             Header:'Is Active',
             accessor:'is_active',
-            Cell:props =>{
-                const handleChange = (e) => {
-                  let data = [...subCatalog]
-                  data[props.row.index]['is_active'] = e.target.checked ? 1 : 0
-                  setSubCatalog(data)
-                }
-        
-                return (
-                  <div>
-                  {
-                    props.row.original.is_edit ? <Switch checked={props.value === 1 ? true : false} handleChange={handleChange}/> :
-                    <label>{props.value === 1 ? 'true' : 'false'}</label> 
-                  }
-                </div>
-                )
-            }
+            Cell: props => props.row.original.is_edit ? <RenderSwitch {...props}/> :  <label>{props.value === 1 ? 'true' : 'false'}</label>
         },
         {
             Header:'Actions',
             Cell:props=>{
-                const handleEdit = () => {
-                    let data = [...subCatalog]
-                    data[props.row.index]['is_edit']=!props.row.original.is_edit 
-                    setSubCatalog(data)
-                }
-
                 const handleDelete = () => {
                     let data = [...subCatalog]
                     data.splice(props.row.index,1)
@@ -68,13 +51,18 @@ function CreateServiceCatalog() {
                     <Button disabled={state.cat_status === 'ACTIVE'} size='small' variant='contained' color='secondary' onClick={handleDelete}> 
                         DELETE
                     </Button>
-                    <Button disabled={state.cat_status === 'ACTIVE'} size='small' variant='contained' onClick={handleEdit}>
-                      {props.row.original.is_edit ? 'SAVE' : 'EDIT'}
-                    </Button>
                 </div>
             }
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     ],[subCatalog,state.cat_status])
+
+    const updateData = (index,id,value) => {
+        skipPageResetRef.current = true
+        let temp = [...subCatalog]
+        temp[index][id] = value
+        setSubCatalog(temp)
+    }
     
     const handleInputChange=(e)=>{
         setState({
@@ -83,15 +71,30 @@ function CreateServiceCatalog() {
         })
     }
 
-    const handleAdd=()=>{
+    const handleSelectChange = (selected) => {
+        setState({
+            ...state,
+            sub_catalog:selected
+        })
+    }
+
+    const handleAdd=()=>{  
+        
+
         if(!state.sub_catalog){
             return toast.error(`Sub Catalog is required`)
         }
 
+        if(subCatalog.filter(item => item.sub_catalog_id === state.sub_catalog?.value).length > 0){
+            return toast.error(`${state.sub_catalog?.label} already exists!`)
+        }
+
         setSubCatalog(subCatalog.concat({
-            sub_catalog_name:state.sub_catalog,
-            is_active:1,
-            is_edit:false
+            catalog_id:null,
+            sub_catalog_id:state.sub_catalog?.value,
+            sub_catalog_name:state.sub_catalog?.label,
+            is_edit:false,
+            is_active:1
         }))
 
         setState({
@@ -123,6 +126,11 @@ function CreateServiceCatalog() {
         })
     }
 
+    React.useEffect(()=>{
+        skipPageResetRef.current = false
+    },[subCatalog]) 
+
+
     return (
         <Grid container spacing={1}>
             <Spinner loading={loading}/>
@@ -132,7 +140,6 @@ function CreateServiceCatalog() {
             <Grid item md={12} xs={12}>
                 <Grid component={Paper} container item variant='container' md={12}>
                     <Grid item xs={12}><Typography variant='button'>Catalog Information</Typography></Grid>
-                    
                     <Input label='Service Catalog'  value={state.cat_name} name='cat_name' handleChange={handleInputChange} isLabelVisible/>
                     <Label label='Status'           value={state.cat_status}/>
                
@@ -142,14 +149,17 @@ function CreateServiceCatalog() {
                 <Grid component={Paper} container item variant='container' md={12}>
                     <Grid item xs={12}><Typography variant='button'>Catalog Details</Typography></Grid>
                     <Grid item xs={12}>
-                        <Input label='Sub Catalog' isLabelVisible value={state.sub_catalog} name='sub_catalog' handleChange={handleInputChange}/>
+                        <MasterSelect label='Level 2 Catalogs' type='service-catalog-l2' name='sub_catalog' value={state.sub_catalog} handleChange={handleSelectChange}/>
+                        {/* <Input label='Sub Catalog' isLabelVisible value={state.sub_catalog} name='sub_catalog' handleChange={handleInputChange}/> */}
                     </Grid>
                     <Grid item md={12} sx={{marginTop:1,marginBottom:1,display:'flex'}}>
                         <div style={{flexGrow:1}}/>
                         <Button disabled={state.cat_status === 'ACTIVE'} variant='contained' color='primary' onClick={handleAdd}>Add</Button>
                         <Button disabled={state.cat_status === 'ACTIVE'} variant='contained' color='primary' onClick={handleConfirm}>Confirm</Button>
                     </Grid>
-                    <SimpleTable size={12} data={subCatalog} columns={columns}/>
+                    <Grid item xs={12}>
+                        <ReactTableEditable columns={columns} data={subCatalog} updateData={updateData}/>
+                    </Grid>
                 </Grid> 
             </Grid>
         </Grid>

@@ -1,7 +1,8 @@
 import React from 'react'
 import {Dialog,DialogTitle,DialogContent,Grid,DialogActions,Button} from '@mui/material';
 import {toast} from 'react-toastify'
-import {Input} from '../../../components/inputs';
+// import {Input} from '../../../components/inputs';
+import {MasterSelect} from '../../../components/select';
 
 function SubCategoryDialog({
     isOpen,
@@ -14,7 +15,8 @@ function SubCategoryDialog({
 
     const handleChange = (e) =>{
         setState({
-            [e.target.name]:e.target.value
+            sub_catalog_name:e
+            //[e.target.name]:e.target.value
         })
     }
 
@@ -33,10 +35,13 @@ function SubCategoryDialog({
 
     return (
         <Dialog fullWidth open={isOpen}>
-            <DialogTitle>New SubCategory</DialogTitle>
+            <DialogTitle>Add Level 2 Service Catalog</DialogTitle>
             <DialogContent dividers>
                 <Grid container>
-                    <Input size={12} isLabelVisible label='Sub Category' name='sub_catalog_name' value={state.sub_catalog_name} handleChange={handleChange}/>
+                    <Grid item xs={12}>
+                        <MasterSelect label='Level 2 Service Catalog' type='service-catalog-l2' name='sub_catalog_name' value={state.sub_catalog_name} handleChange={handleChange}/>
+                    </Grid>
+                    {/* <Input size={12} isLabelVisible label='Sub Category' name='sub_catalog_name' value={state.sub_catalog_name} handleChange={handleChange}/> */}
                 </Grid>
             </DialogContent>
             <DialogActions>

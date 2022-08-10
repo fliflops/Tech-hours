@@ -1,4 +1,4 @@
-import './App.css';
+// import './App.css';
 import {Routes,Route,useNavigate,Navigate} from "react-router-dom";
 import React from 'react';
 import {Container} from './layout';

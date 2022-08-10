@@ -3,7 +3,7 @@ import {
     Menu, 
 	MenuItem,
 } from '@mui/material';
-import {useDispatch,useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {signOut} from '../../../store/auth'
 
 function UserMenu({anchorEl,open,handleClose}) {

@@ -15,6 +15,11 @@ const modules = [
                 label:'Service Catalogs'
             },
             {
+                name:'serviceCatalogL2',
+                route:'/data-management/service-catalog-l2',
+                label:'Service Catalogs Level 2'  
+            },
+            {
                 name:'calendar',
                 route:'/data-management/calendar',
                 label:'Calendar'
@@ -45,38 +50,17 @@ const modules = [
         subModules:[
             {
                 name:'project',
-                route:'/work-hours/project',
-                label:'Project View'
+                route:'/work-hours/gantt-chart',
+                label:'Gantt Chart'
             },
             {
-                name:'project',
-                route:'/work-hours/employee',
-                label:'My Projects'
+                name:'techHours',
+                route:'/work-hours/tech-hours',
+                label:'Tech Hours'
             }
         ]
     }
-    // {
-    //     name:'wbs',
-    //     label:'Work Breakdown Schedule',
-    //     route:'/wbs',
-    //     subModules:[
-    //         {
-    //             name:'',
-    //             route:'',
-    //             label:''
-    //         },
-    //         {
-    //             name:'',
-    //             route:'',
-    //             label:''
-    //         },
-    //         {
-    //             name:'',
-    //             route:'',
-    //             label:''
-    //         }
-    //     ]
-    // },
+    
 ]
 
 export default modules

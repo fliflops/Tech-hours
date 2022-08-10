@@ -1,8 +1,13 @@
-import {Employee,EmployeeDetails,EmployeeCreate} from '../views/Administration/Employees';
-import {Roles,RoleDetails,RoleCreate} from '../views/Administration/Roles';
-import {Calendar} from '../views/Data-Management/Calendar';
-import {ServiceCatalog,CreateServiceCatalog,UpdateServiceCatalog} from '../views/Data-Management/ServiceCatalog';
-import {Projects, CreateProject, UpdateProject} from '../views/Data-Management/Projects';
+import {Employee,EmployeeDetails,EmployeeCreate}                    from '../views/Administration/Employees';
+import {Roles,RoleDetails,RoleCreate}                               from '../views/Administration/Roles';
+import {Calendar}                                                   from '../views/Data-Management/Calendar';
+import {ServiceCatalog,CreateServiceCatalog,UpdateServiceCatalog}   from '../views/Data-Management/ServiceCatalog';
+import {ServiceCatalogL2}                                           from '../views/Data-Management/ServiceCatalogL2';
+import {Projects, CreateProject, UpdateProject}                     from '../views/Data-Management/Projects';
+import {GanttChart} from'../views/Work-Hours/Chart';
+import {Techhours}                                                  from '../views/Work-Hours/TechHours_v2';
+//import {TechHours}                                                  from '../views/Work-Hours/TechHours';
+
 
 const routes = [
     {
@@ -66,6 +71,15 @@ const routes = [
         ]
     },
     {
+        path:'/data-management/service-catalog-l2',
+        children:[
+            {
+                index:true,
+                element:<ServiceCatalogL2/>
+            }
+        ]
+    },
+    {
         path:'/data-management/project-code',
         children:[
             {
@@ -79,6 +93,24 @@ const routes = [
             {
                 path:'details/:project_code',
                 element:<UpdateProject/>
+            }
+        ]
+    },
+    {
+        path:'/work-hours/tech-hours',
+        children:[
+            {
+                index:true,
+                element:<Techhours/>
+            }
+        ]
+    },
+    {
+        path:'/work-hours/gantt-chart',
+        children:[
+            {
+                index:true,
+                element:<GanttChart/>
             }
         ]
     }

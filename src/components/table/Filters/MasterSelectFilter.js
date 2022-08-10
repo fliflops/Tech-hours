@@ -7,26 +7,23 @@ import {
 
 const MasterSelectFilter = ({
 	column:{filterValue, preFilteredRows, setFilter},
-	variant,
+	type,
 	label,
 	name,
-	quickCodeType
 }) => {
-	// const dispatch = useDispatch()
-	const reducer = useSelector(state => state.filters)
+	// const reducer = useSelector(state => state.filters)
 	
-	React.useEffect(()=>{
-		setFilter(reducer[variant] || undefined)
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	},[])
+	// React.useEffect(()=>{
+	// 	setFilter(reducer[variant] || undefined)
+	// // eslint-disable-next-line react-hooks/exhaustive-deps
+	// },[])
 
 	return (
 		<MasterSelect
-			type={variant}
+			type={type}
 			label={label}
 			name={name}
-			quickCodeType={quickCodeType}
-			value={reducer[variant] || filterValue}
+			value={filterValue}
 			handleChange={(e)=>{
 				setFilter(e || undefined)
 			//	dispatch(setValue({

@@ -46,6 +46,7 @@ export default function Projects() {
             accessor:'project_bu'
         },
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     ],[])
     
     const onCreate = () =>{

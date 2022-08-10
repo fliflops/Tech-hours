@@ -30,6 +30,7 @@ function Roles() {
       Header:'Role Status',
       accessor:'role_status'
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   ],[])
 
   const handleCreate = () => {

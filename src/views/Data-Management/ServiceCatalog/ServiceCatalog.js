@@ -1,10 +1,10 @@
 import React from 'react'
-import {Grid,Button} from '@mui/material';
+import {Grid,Button,Paper} from '@mui/material';
 import {useNavigate} from 'react-router-dom'
 import {useDispatch,useSelector} from 'react-redux'
 
 import Toolbar  from '../../../components/toolbar/Toolbar';
-import {Table}  from '../../../components/table';
+import {ReactTable}  from '../../../components/table';
 import {getData} from '../../../store/data-management';
 
 function ServiceCatalog() {
@@ -28,6 +28,7 @@ function ServiceCatalog() {
         Header:'Status',
         accessor:'cat_status'
       }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     ],[])
 
     const onCreate = () => {
@@ -36,12 +37,12 @@ function ServiceCatalog() {
       }) 
     }
 
-    const fetchData = React.useCallback(({pageIndex,pageSize,filters}, callBack) => {
+    const fetchData = React.useCallback(({pageIndex,pageSize,orderBy,filters}, callBack) => {
       dispatch(getData({
         route:'service-catalog',
         page:pageIndex,
         totalPage	:	pageSize,
-			  orderBy		:	'createdAt,DESC',
+			  orderBy,
         filters		:	filters
       }))
       .unwrap()
@@ -57,12 +58,15 @@ function ServiceCatalog() {
         <Grid item md={12} xs={12}>
             <Toolbar label='Service Catalogs' isCreate onCreate={onCreate}/>
         </Grid>
-        <Grid item md={12} xs={12}>
-            <Table 
-                loading={loading}
-                columns={columns}
-                fetchData={fetchData}
-        />
+        <Grid item xs={12}>
+          <Grid item xs={12} component={Paper} variant='container'>
+            <ReactTable 
+              loading={loading}
+              columns={columns}
+              fetchData={fetchData}
+            />
+          </Grid>
+          
         </Grid>
       </Grid>   
     )

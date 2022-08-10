@@ -17,7 +17,9 @@ function Login() {
     }
 
     React.useEffect(()=>{
+      
         const token = searchParams.get('token')
+        // console.log(searchParams)
         // const expiry = searchParams.get('expiry')
         
         if(token){
@@ -29,7 +31,8 @@ function Login() {
             dispatch(getUser({
                 route:'details',
                 filters:{
-                    user_email:'velindayag@codedisruptors.com'
+                    token:token
+                    //user_email:'velindayag@codedisruptors.com'
                 }
             }))
         }
