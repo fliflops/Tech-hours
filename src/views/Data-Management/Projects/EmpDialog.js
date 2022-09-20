@@ -30,7 +30,8 @@ function EmpDialog({
         },
         {
             Header:'Status',
-            accessor:'is_active'
+            accessor:'is_active',
+            Cell:props => props.value === '1' ? 'ACTIVE' : 'INACTIVE'
         },
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

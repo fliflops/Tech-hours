@@ -210,6 +210,7 @@ function ReactTable({
       globalFilter,
       filters,
       sortBy,
+      fetchData
     ])
     
     return (

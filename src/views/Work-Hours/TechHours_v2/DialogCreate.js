@@ -14,7 +14,8 @@ import {useNull} from '../../../helpers'
 
 const DialogCreate = ({
     isOpen,
-    toggle
+    toggle,
+    trigger
 }) => {
 
     const dispatch = useDispatch()
@@ -55,6 +56,10 @@ const DialogCreate = ({
             return toast.error(`${nulls.map(item => `${item}\n`).join(',')} is/are required!`)
         }
 
+        if(!state.planned_duration || state.planned_duration < 0){
+            return toast.error(`Planned duration required!`)
+        }
+
         // if(!available_hrs || available_hrs <= 0){
         //     return toast.error(`You don't have available working hours for this date`)
         // }
@@ -86,6 +91,8 @@ const DialogCreate = ({
                 remarks:null,
                 available_hrs:0
             })
+
+            trigger()
         })
     }
 

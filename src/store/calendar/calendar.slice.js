@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {getCalendar} from './calendar.thunk';
+import {getCalendar,createCalendar} from './calendar.thunk';
 
 const initialState = {
     loading:false
@@ -21,8 +21,18 @@ const slice = createSlice({
         [getCalendar.rejected]:(state,action)=>{
             state.loading=false
         },
+        [createCalendar.fulfilled]:(state,action)=>{
+            state.loading=false
+        },
+        [createCalendar.pending]:(state,action)=>{
+            state.loading=true
+        },
+        [createCalendar.rejected]:(state,action)=>{
+            state.loading=false
+        },
+
     }
 })
 
 export default slice.reducer;
-export {getCalendar}
+export {getCalendar,createCalendar}

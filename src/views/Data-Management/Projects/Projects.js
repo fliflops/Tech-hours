@@ -42,7 +42,7 @@ export default function Projects() {
             accessor:'project_sponsor'
         },
         {
-            Header:'BU',
+            Header:'Business Unit',
             accessor:'project_bu'
         },
 

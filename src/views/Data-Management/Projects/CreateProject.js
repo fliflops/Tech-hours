@@ -18,21 +18,19 @@ function CreateProject() {
     const {loading} = useSelector(state => state.dataManagement)
     const [hasNull] = useNull()
     const [header,setHeader] = React.useState({
-        project_code: null,      
-        project_name:null,
-        project_type:null,
-        project_sponsor:null,
-        project_customer:null,
-        project_bu:null,
-        project_objective:null,
-        project_scope:null,
-        project_out_scope:null,
-        project_go_live:null,
-        project_planned_date:null,
-        project_priority:null,
-        project_post_code:null,
-        project_service_type:null,
-       
+        project_code:           null,      
+        project_name:           null,
+        project_type:           null,
+        project_sponsor:        null,
+        project_customer:       null,
+        project_bu:             null,
+        project_objective:      null,
+        project_scope:          null,
+        project_out_scope:      null,
+        project_go_live:        null,
+        project_planned_date:   null,
+        project_priority:       null,
+        project_service_type:   null       
     })
 
     const handleInputChange = (e) => {
@@ -51,10 +49,17 @@ function CreateProject() {
     
     const handleConfirm = () => {
 
-        const {project_code,
+        const {
+            project_code,
+            project_bu,
             project_customer,
             project_service_type,
-            project_post_code,
+            project_go_live,
+            project_objective,
+            project_scope,
+            project_out_scope,
+            project_planned_date,
+            project_sponsor,
             ...required
         } = header
 
@@ -64,15 +69,22 @@ function CreateProject() {
             return toast.error(`${nulls.map(item => `${item}\n`).join(',')} is/are required!`)
         }
 
+
+
         dispatch(createData({
             route:'project-code',
             data:{
                 ...required,
                 project_customer,
                 project_service_type,
-                project_post_code,
+                project_go_live,
+                project_objective,
+                project_scope,
+                project_out_scope,
+                project_planned_date,
+                project_sponsor,
                 project_priority:header.project_priority?.value || null, 
-                project_type: header.project_type?.value        || null   
+                project_type: header.project_type?.value        || null,
             }
         })) 
         .unwrap()
@@ -83,7 +95,6 @@ function CreateProject() {
             })
         }) 
     }
-
 
     return (
         <Grid container spacing={1}>
@@ -106,10 +117,9 @@ function CreateProject() {
                     <Input  size={3}        label='Customer'           name='project_customer'          value={header.project_customer}         handleChange={handleInputChange} isLabelVisible /> 
                     <Input  size={3}        label='Service Type'       name='project_service_type'      value={header.project_service_type}     handleChange={handleInputChange} isLabelVisible /> 
                     
-                    <DatePicker size={2}    label='Go Live Date'       name='project_go_live'           value={header.project_go_live}          handleChange={handleInputChange} isLabelVisible/>
-                    <DatePicker size={2}    label='Planned Start'      name='project_planned_date'      value={header.project_planned_date}     handleChange={handleInputChange} isLabelVisible/>
+                    <DatePicker size={4}    label='Go Live Date'       name='project_go_live'           value={header.project_go_live}          handleChange={handleInputChange} isLabelVisible/>
+                    <DatePicker size={4}    label='Planned Start'      name='project_planned_date'      value={header.project_planned_date}     handleChange={handleInputChange} isLabelVisible/>
                     
-                    <Input      size={4}    label='Project Post Code'  name='project_post_code'         value={header.project_post_code}        handleChange={handleInputChange} isLabelVisible /> 
                     <Grid item md={4}>
                         <MasterSelect       label='Priority'           name='project_priority'          value={header.project_priority}         handleChange={handleSelectChange} type='quick-code' filter='PROJECT_PRIO'/>
                     </Grid>  

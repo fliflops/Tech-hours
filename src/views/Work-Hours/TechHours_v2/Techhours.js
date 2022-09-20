@@ -22,6 +22,8 @@ const Techhours = () => {
   const [createDialog,setCreateDialog] = React.useState({
     isOpen:false
   })
+
+  const [trigger,setTrigger] = React.useState(false)
     
   const columns = React.useMemo(()=>[
       {
@@ -111,7 +113,7 @@ const Techhours = () => {
       callBack(result)
     })
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[])
+  },[trigger])
 
   const toggleCreateDialog = () => {
     setCreateDialog({
@@ -119,7 +121,8 @@ const Techhours = () => {
       isOpen:!createDialog.isOpen
     })
   }
-  
+
+
   return (
     <Grid container spacing={1}>
       <Spinner loading={loading}/>
@@ -138,7 +141,7 @@ const Techhours = () => {
         </Grid>
         
       </Grid>
-      <CreateDialog isOpen={createDialog.isOpen} toggle={toggleCreateDialog}/>
+      <CreateDialog isOpen={createDialog.isOpen} toggle={toggleCreateDialog} trigger={()=>{setTrigger(!trigger)}}/>
     </Grid>
   )
 }

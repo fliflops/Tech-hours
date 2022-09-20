@@ -27,7 +27,7 @@ const ServiceCatalogL2 = () => {
     {
       Header:'Status',
       accessor:'is_active',
-      Cell:isEdit ? RenderSwitch : props => props.value === 1 ? 'Active' : 'Inactive'
+      Cell:isEdit ? RenderSwitch : props => props.value === 1 ? 'ACTIVE' : 'INACTIVE'
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   ],[data,isEdit])
