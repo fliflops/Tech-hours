@@ -30,9 +30,9 @@ function CreateServiceCatalog() {
             accessor:'sub_catalog_name'
         },
         {
-            Header:'Is Active',
+            Header:'Status',
             accessor:'is_active',
-            Cell: props => props.row.original.is_edit ? <RenderSwitch {...props}/> :  <label>{props.value === 1 ? 'true' : 'false'}</label>
+            Cell: props => props.row.original.is_edit ? <RenderSwitch {...props}/> :  <label>{props.value === 1 ? 'ACTIVE' : 'INACTIVE'}</label>
         },
         {
             Header:'Actions',

@@ -37,9 +37,9 @@ function UpdateServiceCatalog() {
       accessor:'sub_catalog_name',
     },
     {
-      Header:'Is Active',
+      Header:'Status',
       accessor:'is_active',
-      Cell: isEdit ? RenderSwitch : props => props.value === 1 ? 'true' : 'false'
+      Cell: isEdit ? RenderSwitch : props => props.value === 1 ? 'ACTIVE' : 'INACTIVE'
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   ],[isEdit,subCatalog])

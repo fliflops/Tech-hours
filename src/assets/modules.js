@@ -12,12 +12,12 @@ const modules = [
             {
                 name:'serviceCatalog',
                 route:'/data-management/service-catalog',
-                label:'Service Catalogs'
+                label:'Level 1 Service Catalogs'
             },
             {
                 name:'serviceCatalogL2',
                 route:'/data-management/service-catalog-l2',
-                label:'Service Catalogs Level 2'  
+                label:'Level 2 Service Catalogs'  
             },
             {
                 name:'calendar',

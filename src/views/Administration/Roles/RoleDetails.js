@@ -57,7 +57,7 @@ function RoleDetails() {
       }
     },
     {
-      Header:'Is Active',
+      Header:'Status',
       accessor:'is_active',
       Cell:props =>{
         const handleChange = (e) => {
@@ -70,7 +70,7 @@ function RoleDetails() {
           <div>
           {
             props.row.original.is_edit ? <Switch checked={props.value} handleChange={handleChange}/> :
-            <label>{props.value ? 'true':'false'}</label> 
+            <label>{props.value ? 'ACTIVE':'INACTIVE'}</label> 
           }
         </div>
         )

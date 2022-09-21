@@ -51,17 +51,17 @@ const Techhours = () => {
         )
       },
       {
-        Header:'Service Catalog',
+        Header:'L1 Service Catalog',
         accessor:'service_catalog_name',
         disableSortBy:true,
       },
       {
-        Header:'L2 Catalog',
+        Header:'L2 Service Catalog',
         accessor:'l2_catalog_name',
         disableSortBy:true,
       },
       {
-        Header:     'L3 Catalog',
+        Header:     'L3 Service Catalog',
         accessor:   'l3_catalog',
         disableSortBy:true,
       },
@@ -127,7 +127,7 @@ const Techhours = () => {
     <Grid container spacing={1}>
       <Spinner loading={loading}/>
       <Grid item xs={12}>
-        <Toolbar label='Tech Hours' isCreate onCreate={toggleCreateDialog}/>
+        <Toolbar label='Task Creation' isCreate onCreate={toggleCreateDialog}/>
       </Grid>
       <Grid item xs={12}>
         <Grid item container xs={12} component={Paper} variant='container'>

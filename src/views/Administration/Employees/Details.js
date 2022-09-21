@@ -83,10 +83,10 @@ function EmployeeDetails() {
       }
     },
     {
-      Header:'Is Active',
+      Header:'Status',
       accessor:'is_active',
       Cell:props => {
-        return props.value === 1 ? 'true':'false'
+        return props.value === 1 ? 'ACTIVE':'INACTIVE'
       }
     },
     {

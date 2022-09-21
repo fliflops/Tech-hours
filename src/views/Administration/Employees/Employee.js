@@ -26,16 +26,16 @@ function Employee() {
             }
         },
         {
-            Header:'Firstname',
+            Header:'First Name',
             accessor:'emp_first_name',
            
         },
         {
-            Header:'Middlename',
+            Header:'Middle Name',
             accessor:'emp_middle_name'
         },
         {
-            Header:'Lastname',
+            Header:'Last Name',
             accessor:'emp_last_name'
         },
         {
@@ -47,7 +47,7 @@ function Employee() {
             accessor:'emp_status'
         },
         {
-            Header:'Emp Status',
+            Header:'Employee Status',
             accessor:'emp_employment_status'
         },
         {

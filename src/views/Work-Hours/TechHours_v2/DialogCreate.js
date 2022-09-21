@@ -178,7 +178,7 @@ const DialogCreate = ({
                     <Label label='Role' value={state.role?.label} size={12}/>
                 </Grid>
                 <Grid item xs={6}>
-                    <MasterSelect label='Service Catalog' name='service_catalog' type={`service-catalog/${state.project_code?.value}`} value={state.service_catalog} handleChange={handleSelectChange} isDisabled={!state.project_code}/>
+                    <MasterSelect label='L1 Service Catalog' name='service_catalog' type={`service-catalog/${state.project_code?.value}`} value={state.service_catalog} handleChange={handleSelectChange} isDisabled={!state.project_code}/>
                 </Grid>
                 <Grid item xs={6}>
                     <MasterSelect label='L2 Service Catalog' name='l2_service_catalog' type={`service-catalog-l2/${state.service_catalog?.value}`} value={state.l2_service_catalog} handleChange={handleSelectChange} isDisabled={!state.service_catalog}/>
