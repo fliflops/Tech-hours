@@ -93,6 +93,10 @@ const Techhours = () => {
         accessor:'remarks',
       },
       {
+        Header:'Adhoc',
+        accessor:'adhoc'
+      },
+      {
         Header:'Role',
         accessor:'role_name',
         disableSortBy:true
@@ -121,7 +125,6 @@ const Techhours = () => {
       isOpen:!createDialog.isOpen
     })
   }
-
 
   return (
     <Grid container spacing={1}>
